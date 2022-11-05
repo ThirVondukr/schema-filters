@@ -1,3 +1,3 @@
-from ._protocol import FilterHolder, SchemaGenerator
+from ._protocol import FilterParameter, SchemaGenerator
 
-__all__ = ["SchemaGenerator", "FilterHolder"]
+__all__ = ["SchemaGenerator", "FilterParameter"]

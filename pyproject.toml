@@ -27,6 +27,7 @@ dev = [
     "mypy>=0.982",
     "coverage>=6.5.0",
     "sqlalchemy>=2.0.0b2",
+    "bandit>=1.7.4",
 ]
 
 [tool.mypy]

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Protocol, TypeVar
 from schema_filters.fields import FieldFilter
 
 if TYPE_CHECKING:
-    from schema_filters.schema import FilterHolder
+    from schema_filters.schema._protocol import FilterRequest
 
 T = TypeVar("T")
 
@@ -14,7 +14,7 @@ class FilterProtocol(Protocol[T]):
     def filter(
         self,
         query: T,
-        filters: list[FilterHolder],
+        filter: FilterRequest,
     ) -> T:
         ...
 

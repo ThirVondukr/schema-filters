@@ -3,6 +3,7 @@ from typing import Any, ClassVar, Generic, Type, TypeVar
 from .fields import FieldFilter
 from .filters import FilterProtocol
 from .naming import NameGenerator, SeparatorNameGenerator
+from .order_by import OrderBy
 from .schema import SchemaGenerator
 
 TModel = TypeVar("TModel")
@@ -17,6 +18,7 @@ class Filter(Generic[TModel, TSchema]):
     __name_generator__: NameGenerator = SeparatorNameGenerator("__")
     __filter__: FilterProtocol[Any]
     __schema_generator__: SchemaGenerator[TSchema]
+    __order_by__: OrderBy | None = None
 
     def __init_subclass__(cls) -> None:
         if not hasattr(cls, "__filters__"):
@@ -36,6 +38,7 @@ class Filter(Generic[TModel, TSchema]):
         return cls.__schema_generator__.schema_class(
             cls.__name__,
             cls.__filter_spec__,
+            cls.__order_by__,
             name_generator=cls.__name_generator__,
         )
 
@@ -44,6 +47,7 @@ class Filter(Generic[TModel, TSchema]):
         filters = cls.__schema_generator__.filters_from_schema(
             schema=schema,
             filter_spec=cls.__filter_spec__,
+            order_by=cls.__order_by__,
             name_generator=cls.__name_generator__,
         )
         return cls.__filter__.filter(  # type: ignore
