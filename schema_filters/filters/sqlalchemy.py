@@ -1,19 +1,19 @@
-from typing import TypeVar
+from typing import Any, Tuple, TypeVar
 
 from sqlalchemy import Select
 
 from schema_filters.fields import FieldFilter, Op, Operator
 from schema_filters.schema._protocol import FilterRequest
 
-T = TypeVar("T", bound=Select)
+T = TypeVar("T", bound=Tuple[Any, ...])
 
 
 class SqlalchemyFilter:
     @staticmethod
     def filter(
-        query: T,
+        query: Select[T],
         filter: FilterRequest,
-    ) -> T:
+    ) -> Select[T]:
         for param in filter.params:
             operator: Operator = Op[param.operator_name].value
             query = query.where(operator.op(param.filter.target, param.value))
