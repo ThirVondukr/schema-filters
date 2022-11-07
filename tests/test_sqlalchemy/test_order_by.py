@@ -41,7 +41,7 @@ def test_should_be_present_on_schema() -> None:
 
 def test_apply_order_by() -> None:
     schema_cls: Type[BaseModel] = UserFilter.schema()
-    schema = schema_cls(order_by="username, id")
+    schema = schema_cls(order_by="username,id")
     stmt = select(User)
 
     filtered = UserFilter.apply(stmt, schema)
